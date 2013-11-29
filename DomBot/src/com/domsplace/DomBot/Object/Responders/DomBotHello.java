@@ -20,30 +20,45 @@ import com.domsplace.DomBot.Bases.Base;
 import com.domsplace.DomBot.Object.DomBotResponse;
 import com.domsplace.DomBot.Object.Responder;
 import com.domsplace.DomBot.Threads.DomBotResponseThread;
-import org.bukkit.Bukkit;
 
 /**
  *
  * @author Dominic Masters
  */
-public class DomBotReloader extends Responder {
-    public DomBotReloader() {
+public class DomBotHello extends Responder {
+    public DomBotHello() {
         super();
-        this.setPermission("reloader");
     }
     
     @Override
     public boolean response(DomBotResponse response, DomBotResponseThread thread) {
-        if(!response.getBasicResponse().toLowerCase().startsWith("dombot")) return true;
-        if(!response.hasArgStartsWith("reload") || !response.hasArgStartsWith("server")) return true;
-        talk(confirm());
-        Bukkit.getServer().reload();
+        if(response.getCleanArgs().length < 2) return true;
+        if(!response.hasArgStartsWith("dombot")) return true;
+        
+        String[] greetings = new String[] {
+            "Hello",
+            "Hey",
+            "Hi",
+            "Gday",
+            "Sup",
+            "Whats up"
+        };
+        boolean found = false;
+        for(String s : greetings) {
+            if(!response.hasArgStartsWith(s)) continue;
+            found = true;
+            break;
+        }
+        
+        if(!found) return true;
+        
         talk(new String[] {
-            "All Done!",
-            "Done!",
-            "Yep!",
-            "Did it",
-            "Completed."
+            "Hello",
+            "Hey",
+            "Heya",
+            "Hello " + Base.getDisplayName(response.getPlayer()),
+            "Hello there",
+            "Salutations"
         });
         return false;
     }

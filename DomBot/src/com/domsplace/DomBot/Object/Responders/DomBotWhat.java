@@ -27,14 +27,26 @@ import com.domsplace.DomBot.Threads.DomBotResponseThread;
 public class DomBotWhat extends Responder {
     public DomBotWhat() {
         super();
-        this.setPermission("learn");
     }
     
     @Override
     public boolean response(DomBotResponse response, DomBotResponseThread thread) {
+        if(!response.getBasicResponse().toLowerCase().startsWith("dombot")) return true;
         if(response.getCleanArgs().length < 4) return true;
-        if(!response.hasArgStartsWith("what")) return true;
+        if(!response.hasArgStartsWith("what")
+                && !response.hasArgStartsWith("who")
+                && !response.hasArgStartsWith("where")
+                && !response.hasArgStartsWith("how")
+                && !response.hasArgStartsWith("when")
+                && !response.hasArgStartsWith("why")) return true;
         String search = response.getCleanArgs()[response.getCleanArgs().length - 1];
+        
+        if(search.equalsIgnoreCase("know")) {
+            talk(new String[] {
+                "I know " + BRAIN.size() + " things."
+            });
+            return false;
+        }
         
         if(!doIKnow(search)) {
             talk(this.noidea());

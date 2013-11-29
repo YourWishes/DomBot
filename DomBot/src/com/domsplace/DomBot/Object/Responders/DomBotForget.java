@@ -16,34 +16,37 @@
 
 package com.domsplace.DomBot.Object.Responders;
 
-import com.domsplace.DomBot.Bases.Base;
+import com.domsplace.DomBot.Bases.DataManager;
 import com.domsplace.DomBot.Object.DomBotResponse;
 import com.domsplace.DomBot.Object.Responder;
 import com.domsplace.DomBot.Threads.DomBotResponseThread;
-import org.bukkit.Bukkit;
 
 /**
  *
  * @author Dominic Masters
  */
-public class DomBotReloader extends Responder {
-    public DomBotReloader() {
+public class DomBotForget extends Responder {
+    public DomBotForget() {
         super();
-        this.setPermission("reloader");
+        this.setPermission("forget");
     }
     
     @Override
     public boolean response(DomBotResponse response, DomBotResponseThread thread) {
         if(!response.getBasicResponse().toLowerCase().startsWith("dombot")) return true;
-        if(!response.hasArgStartsWith("reload") || !response.hasArgStartsWith("server")) return true;
-        talk(confirm());
-        Bukkit.getServer().reload();
+        if(response.getCleanArgs().length < 3) return true;
+        if(!response.getCleanArgs()[1].equalsIgnoreCase("forget")) return true;
+        
+        String learnt = response.getArgs()[2];
+        if(!doIKnowExactly(learnt)) {
+            talk(noidea());
+            return false;
+        }
+        DataManager.BRAIN_MANAGER.setCFG(DataManager.removeFromYml(learnt, DataManager.BRAIN_MANAGER.getCFG()));
+        forget(learnt);
+        DataManager.saveAll();
         talk(new String[] {
-            "All Done!",
-            "Done!",
-            "Yep!",
-            "Did it",
-            "Completed."
+            "What'd I forget? I don't remember.."
         });
         return false;
     }

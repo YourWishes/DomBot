@@ -33,11 +33,12 @@ public class DomBotLearn extends Responder {
     
     @Override
     public boolean response(DomBotResponse response, DomBotResponseThread thread) {
+        if(!response.getBasicResponse().toLowerCase().startsWith("dombot")) return true;
         if(response.getCleanArgs().length < 4) return true;
         if(!response.getCleanArgs()[1].equalsIgnoreCase("learn")) return true;
         
         String learnt = response.getArgs()[2];
-        if(doIKnow(learnt)) {
+        if(doIKnowExactly(learnt)) {
             talk(new String[] {
                 "I already knew that..",
                 "I thought " + learnt + " meant " + whatIs(learnt)

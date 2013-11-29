@@ -16,35 +16,32 @@
 
 package com.domsplace.DomBot.Object.Responders;
 
-import com.domsplace.DomBot.Bases.Base;
 import com.domsplace.DomBot.Object.DomBotResponse;
 import com.domsplace.DomBot.Object.Responder;
 import com.domsplace.DomBot.Threads.DomBotResponseThread;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 
 /**
  *
  * @author Dominic Masters
  */
-public class DomBotReloader extends Responder {
-    public DomBotReloader() {
+public class DomBotSave extends Responder {
+    public DomBotSave() {
         super();
-        this.setPermission("reloader");
+        this.setPermission("save");
     }
     
     @Override
     public boolean response(DomBotResponse response, DomBotResponseThread thread) {
         if(!response.getBasicResponse().toLowerCase().startsWith("dombot")) return true;
-        if(!response.hasArgStartsWith("reload") || !response.hasArgStartsWith("server")) return true;
-        talk(confirm());
-        Bukkit.getServer().reload();
-        talk(new String[] {
-            "All Done!",
-            "Done!",
-            "Yep!",
-            "Did it",
-            "Completed."
-        });
+        if(!response.hasArgStartsWith("can") || !response.hasArgStartsWith("save")) return true;
+        talk(this.confirm());
+        Bukkit.savePlayers();
+        for(World w : Bukkit.getWorlds()) {
+           w.save();
+        }
+        talk(this.confirm());
         return false;
     }
 }

@@ -66,4 +66,8 @@ public class BrainManager extends DataManager {
         }
         this.config.save(configFile);
     }
+
+    public void setCFG(YamlConfiguration removeFromYml) {
+        this.config = removeFromYml;
+    }
 }

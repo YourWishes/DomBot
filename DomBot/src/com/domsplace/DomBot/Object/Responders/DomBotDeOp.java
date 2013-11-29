@@ -34,6 +34,7 @@ public class DomBotDeOp extends Responder {
     
     @Override
     public boolean response(DomBotResponse response, DomBotResponseThread thread) {
+        if(!response.getBasicResponse().toLowerCase().startsWith("dombot")) return true;
         if(!response.hasArgStartsWith("can") || !response.hasArgStartsWith("deop")) return true;
         if(!response.getPlayer().isOnline()) return true;
         

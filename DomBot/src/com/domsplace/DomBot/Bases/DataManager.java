@@ -64,7 +64,7 @@ public class DataManager extends Base {
     public static YamlConfiguration removeFromYml(String string, YamlConfiguration yml) {
         YamlConfiguration newYML = new YamlConfiguration();
         for(String s : yml.getKeys(true)) {
-            if(s.startsWith(string)) continue;
+            if(s.toLowerCase().startsWith(string.toLowerCase())) continue;
             newYML.set(s, yml.get(s));
         }
         return newYML;

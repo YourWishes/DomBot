@@ -27,6 +27,7 @@ import com.domsplace.DomBot.Threads.DomBotResponseThread;
 public class DomBotLove extends Responder {
     @Override
     public boolean response(DomBotResponse response, DomBotResponseThread thread) {
+        if(!response.getBasicResponse().toLowerCase().startsWith("dombot")) return true;
         if(response.getCleanArgs().length < 2) return true;
         if(!response.hasArgStartsWith("love") || !response.hasArgStartsWith("you")) return true;
         talk(new String[] {

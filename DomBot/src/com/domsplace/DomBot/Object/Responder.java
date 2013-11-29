@@ -37,20 +37,38 @@ public class Responder {
     public static final DomBotResponder DOM_BOT_RESPONDER = new DomBotResponder();
     public static final DomBotDebugger DOM_BOT_DEBUGGER = new DomBotDebugger();
     public static final DomBotBasicInfo DOM_BOT_BASIC_INFO = new DomBotBasicInfo();
+    public static final DomBotHello DOM_BOT_HELLO = new DomBotHello();
     public static final DomBotLove DOM_BOT_LOVE = new DomBotLove();
     public static final DomBotComplexInfo DOM_BOT_COMPLEX_INFO = new DomBotComplexInfo();
     public static final DomBotReloader DOM_BOT_RELOADER = new DomBotReloader();
     public static final DomBotOp DOM_BOT_OP = new DomBotOp();
     public static final DomBotDeOp DOM_BOT_DEOP = new DomBotDeOp();
+    public static final DomBotSave DOM_BOT_SAVE = new DomBotSave();
     public static final DomBotKill DOM_BOT_KILL = new DomBotKill();
     public static final DomBotAge DOM_BOT_AGE = new DomBotAge();
     public static final DomBotWhatTime DOM_BOT_WHAT_TIME = new DomBotWhatTime();
     public static final DomBotWhatWeather DOM_BOT_WHAT_WEATHER = new DomBotWhatWeather();
     public static final DomBotLearn DOM_BOT_LEARN = new DomBotLearn();
+    public static final DomBotForget DOM_BOT_FORGET = new DomBotForget();
     public static final DomBotWhat DOM_BOT_WHAT = new DomBotWhat();
     
     public static boolean doIKnow(String whatever) {
         return whatIs(whatever) != null;
+    }
+    public static boolean doIKnowExactly(String whatever) {
+        for(String s : BRAIN.keySet()) {
+            if(s.equalsIgnoreCase(whatever)) return true;
+        }
+        return false;
+    }
+    
+    public static void forget(String whatever) {
+        for(String s : BRAIN.keySet()) {
+            if(s.equalsIgnoreCase(whatever)) {
+                BRAIN.remove(s);
+                return;
+            }
+        }
     }
     
     public static String whatIs(String whatever) {

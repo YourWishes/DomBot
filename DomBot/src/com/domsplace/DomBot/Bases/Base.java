@@ -53,7 +53,7 @@ public class Base extends RawBase {
     public static boolean DebugMode = false;
     public static DomBotPlugin plugin;
     
-    public static String ChatDefault = ChatColor.GRAY.toString();
+    public static String ChatDefault = ChatColor.WHITE.toString();
     public static String ChatImportant = ChatColor.BLUE.toString();
     public static String ChatError = ChatColor.RED.toString();
     
