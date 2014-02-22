@@ -1,7 +1,7 @@
 name: DomBot
 description: 'DomBot is a simple AI Program designed for Bukkit Minecraft servers'
 author: Dominic
-main: com.domsplace.DomBot.DomBotPlugin
+main: com.domsplace.DomBot.DomBot
 website: http://domsplace.com/
 version: '1.00'
 permissions:

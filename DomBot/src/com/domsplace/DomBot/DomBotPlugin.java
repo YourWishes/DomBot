@@ -16,11 +16,6 @@
 
 package com.domsplace.DomBot;
 
-import com.domsplace.DomBot.Bases.DomsThread;
-import com.domsplace.DomBot.Bases.Base;
-import com.domsplace.DomBot.Bases.DataManager;
-import com.domsplace.DomBot.Listeners.ResponseListener;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -28,43 +23,11 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @since       12/11/2013
  */
 public class DomBotPlugin extends JavaPlugin {
-    private boolean enabled = false;
-    
-    //Commands
-    
-    //Listeners
-    private ResponseListener listener;
-    
-    //Threads
-    
     @Override
     public void onEnable() {
-        //Register Plugin
-        Base.setPlugin(this);
-        
-        if(!DataManager.loadAll()) {
-            this.disable();
-            return;
-        }
-        
-        this.listener = new ResponseListener();
-        
-        this.enabled = true;
-        Base.debug("Finished Loading " + this.getName());
     }
     
     @Override
     public void onDisable() {
-        if(!enabled) {
-            return;
-        }
-        
-        //Unhook Economy
-        DomsThread.stopAllThreads();
-        DataManager.saveAll();
-    }
-    
-    public void disable() {
-        Bukkit.getPluginManager().disablePlugin(this);
     }
 }
